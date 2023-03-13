@@ -37,16 +37,19 @@ describe("TodoList Test Suite", () => {
     expect(all[0].completed).toBe(true);
   });
   test("retrive the overdue data", () => {
-    expect(overdue().length).toBe(1);
+    add({ title: "finish wd201", dueDate: yesterday, completed: false });
+    expect(overdue().length).toBe(2);
   });
   test("retrive the dueToday data", () => {
-    add({ title: "Pay rent", dueDate: today, completed: true });
-    add({ title: "Service Vehicle", dueDate: today, completed: false });
-    expect(dueToday().length).toBe(2);
+    add({ title: "go school", dueDate: today, completed: true });
+    add({ title: "watch tv", dueDate: today, completed: false });
+    add({ title: "watch movie", dueDate: today, completed: false });
+    expect(dueToday().length).toBe(3);
   });
   test("retrive the dueLater data", () => {
-    add({ title: "File taxes", dueDate: tomorrow, completed: false });
-    add({ title: "Pay electric bill", dueDate: tomorrow, completed: false });
-    expect(dueLater().length).toBe(2);
+    add({ title: "pay taxes", dueDate: tomorrow, completed: false });
+    add({ title: "Pay car bill", dueDate: tomorrow, completed: false });
+    add({ title: "Pay rent", dueDate: tomorrow, completed: false });
+    expect(dueLater().length).toBe(3);
   });
 });

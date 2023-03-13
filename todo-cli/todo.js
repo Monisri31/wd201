@@ -8,28 +8,28 @@ const todoList = () => {
   };
 
   const overdue = () => {
-    const aa = all.filter(
+    const ov = all.filter(
       (item) => item.dueDate.split("-")[2] < new Date().getDate()
     );
-    return aa;
+    return ov;
   };
 
   const dueToday = () => {
-    const bb = all.filter(
+    const bt = all.filter(
       (item) => item.dueDate.split("-")[2] === String(new Date().getDate())
     );
-    return bb;
+    return bt;
   };
 
   const dueLater = () => {
-    const bb = all.filter(
+    const bla = all.filter(
       (item) => item.dueDate.split("-")[2] > new Date().getDate()
     );
-    return bb;
+    return bla;
   };
 
   const toDisplayableList = (list) => {
-    const final_result = list.map(
+    const result = list.map(
       (item) =>
         `${item.completed ? "[x]" : "[ ]"} ${item.title} ${
           item.dueDate.split("-")[2] === String(new Date().getDate())
@@ -38,7 +38,7 @@ const todoList = () => {
         }`
     );
 
-    return final_result.join("\n");
+    return result.join("\n");
   };
 
   return {

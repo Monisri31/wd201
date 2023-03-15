@@ -45,7 +45,7 @@ describe("Todo New Test Suite", () => {
 
   test("retreive Overdue", () => {
     add({
-      title: "Test Over Due 2",
+      title: "Test Over today",
       completed: false,
       dueDate: new Date(new Date().setDate(new Date().getDate() - 1))
         .toISOString()
@@ -57,14 +57,9 @@ describe("Todo New Test Suite", () => {
     ).toBe(2);
   });
 
-  test("Should check the retreive of due today", () => {
+  test("retreive of due today", () => {
     add({
       title: "Test Due Today",
-      completed: false,
-      dueDate: new Date().toISOString().slice(0, 10),
-    });
-    add({
-      title: "Today goto school",
       completed: false,
       dueDate: new Date().toISOString().slice(0, 10),
     });
@@ -72,18 +67,11 @@ describe("Todo New Test Suite", () => {
       all.filter(
         (item) => item.dueDate === new Date().toISOString().slice(0, 10)
       ).length
-    ).toBe(3);
+    ).toBe(2);
   });
 });
 
-test("Overdue item", () => {
-  add({
-    title: "Test 2",
-    completed: false,
-    dueDate: new Date(new Date().setDate(new Date().getDate() + 1))
-      .toISOString()
-      .slice(0, 10),
-  });
+test("Overdue item recived", () => {
   add({
     title: "Test 4",
     completed: false,
@@ -94,5 +82,5 @@ test("Overdue item", () => {
   expect(
     all.filter((item) => item.dueDate > new Date().toISOString().slice(0, 10))
       .length
-  ).toBe(3);
+  ).toBe(2);
 });

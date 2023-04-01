@@ -3,7 +3,7 @@
 {
   "development": {
     "username": "postgres",
-    "password": "seeni@123",
+    "password": "postgres",
     "database": "sass_todo_db_dev",
     "host": "127.0.0.1",
     "dialect": "postgres",
@@ -11,7 +11,7 @@
   },
   "test": {
     "username": "postgres",
-    "password": "seeni@123",
+    "password": "postgres",
     "database": "sass_todo_db_test",
     "host": "127.0.0.1",
     "dialect": "postgres",

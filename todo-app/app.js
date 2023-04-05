@@ -9,11 +9,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "ejs");
 app.get("/", async (request, response) => {
-  const Todolistall = await Todo.getTodo();
+  const TodoList = await Todo.getTodo();
   if (request.accepts("html")) {
-    response.render("index", { Todolistall });
+    response.render("index", { TodoList });
   } else {
-    response.json(Todolistall);
+    response.json(TodoList);
   }
 });
 

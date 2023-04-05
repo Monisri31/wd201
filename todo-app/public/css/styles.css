@@ -1,0 +1,13 @@
+body{
+    background: linear-gradient(90deg, whitesmoke, gray);
+    font-family: sans-serif;
+}
+
+body h3{
+    color: black;
+}
+
+table{
+    color: rgb(57, 55, 55);
+    font-weight: bold;
+}

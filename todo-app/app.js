@@ -3,70 +3,65 @@ const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
 const path = require("path");
+const { response } = require("express");
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "public")));
-
 app.set("view engine", "ejs");
-app.get("/", async (request, response) => {
-  const TodoList = await Todo.getTodo();
-  if (request.accepts("html")) {
-    response.render("index", { TodoList });
+app.use(express.static(path.join(__dirname + "public")));
+// app.use(express.static("public"));
+
+app.get("/", async (req, res) => {
+  const allTodos = await Todo.getTodos();
+  if (req.accepts("html")) {
+    res.render("index", {
+      allTodos,
+    });
   } else {
-    response.json(TodoList);
+    res.json(allTodos);
   }
 });
 
-app.get("/todos/:id", async function (request, response) {
+app.get("/todos", async (req, res) => {
   try {
-    const todo = await Todo.findByPk(request.params.id);
-    return response.json(todo);
+    const todos = await Todo.findAll({ order: [["id", "ASC"]] });
+    return res.json(todos);
+  } catch (error) {
+    console.log(error);
+    return res.status(422).json(error);
+  }
+});
+
+app.post("/todos", async (req, res) => {
+  console.log("Body : ", req.body);
+  try {
+    const todo = await Todo.addTodo({
+      title: req.body.title,
+      dueDate: req.body.dueDate,
+      completed: false,
+    });
+    return res.json(todo);
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
   }
 });
 
-app.get("/todos", async function (_request, response) {
-  try {
-    const todo = await Todo.getTodo();
-    return response.json(todo);
-  } catch (error) {
-    console.log(error);
-    return response.status(422).json(error);
-  }
-});
-
-app.put("/todos/:id/markAsCompleted", async function (request, response) {
-  const todo = await Todo.findByPk(request.params.id);
+app.put("/todos/:id/markAsCompleted", async (req, res) => {
+  console.log("Todo marks completed : ", req.params.id);
+  const todo = await Todo.findByPk(req.params.id);
   try {
     const updateTodo = await todo.markAsCompleted();
-    return response.json(updateTodo);
+    return res.json(updateTodo);
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
   }
 });
 
-app.post("/todos", async function (request, response) {
-  try {
-    const todo = await Todo.addTodo(request.body);
-    return response.json(todo);
-  } catch (error) {
-    console.log(error);
-    return response.status(422).json(error);
-  }
-});
-
-app.delete("/todos/:id", async function (request, response) {
-  const todo = await Todo.findByPk(request.params.id);
-  try {
-    const deleteTodo = await todo.deleteTodo({ todo: request.params.id });
-    return response.send(true);
-  } catch (error) {
-    console.log(error);
-    return response.send(false);
-  }
+app.delete("/todos/:id", async (req, res) => {
+  console.log("We have to delete a Todo with ID: ", req.params.id);
+  const delete_Row = await Todo.destroy({ where: { id: req.params.id } });
+  res.send(delete_Row ? true : false);
 });
 
 module.exports = app;

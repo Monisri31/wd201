@@ -2,22 +2,16 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
-    static associate(models) {}
+    static associate(models) {
+      // define association here
+    }
 
     static addTodo({ title, dueDate }) {
       return this.create({ title: title, dueDate: dueDate, completed: false });
     }
 
-    static getTodo() {
-      return this.findAll();
-    }
-
-    deleteTodo({ todo }) {
-      return this.destroy({
-        where: {
-          id: todo,
-        },
-      });
+    static getTodos() {
+      return this.findAll({ order: [["id", "ASC"]] });
     }
 
     markAsCompleted() {

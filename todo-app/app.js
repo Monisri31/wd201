@@ -11,10 +11,10 @@ app.use(cookieParser("shh! some secret string"));
 app.set("view engine", "ejs");
 app.use(csurf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 app.get("/", async (request, response) => {
-  const overduetodo = await Todo.overdueTodoList();
-  const duetodaytodo = await Todo.duetodayTodoList();
-  const duelatertodo = await Todo.duelaterTodoList();
-  const completedtodo = await Todo.markAsCompletedList();
+  const overduetodo = await Todo.overdueTodoall();
+  const duetodaytodo = await Todo.duetodayTodoall();
+  const duelatertodo = await Todo.duelaterTodoall();
+  const completedtodo = await Todo.markAsCompletedall();
 
   if (request.accepts("html")) {
     response.render("index", {

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll();
     }
 
-    static overdueTodoList() {
+    static overdueTodoall() {
       return this.findAll({
         where: {
           dueDate: { [Op.lt]: new Date() },
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static duetodayTodoList() {
+    static duetodayTodoall() {
       return this.findAll({
         where: {
           dueDate: { [Op.eq]: new Date() },
@@ -32,16 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static markAsCompletedList() {
-      return this.findAll({
-        where: {
-          completed: true,
-        },
-        order: [["id", "ASC"]],
-      });
-    }
-
-    static duelaterTodoList() {
+    static duelaterTodoall() {
       return this.findAll({
         where: {
           dueDate: { [Op.gt]: new Date() },
@@ -51,11 +42,12 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static async remove(id) {
-      return this.destroy({
+    static markAsCompletedall() {
+      return this.findAll({
         where: {
-          id,
+          completed: true,
         },
+        order: [["id", "ASC"]],
       });
     }
 
@@ -63,6 +55,15 @@ module.exports = (sequelize, DataTypes) => {
       return this.destroy({
         where: {
           id: todo,
+        },
+      });
+    }
+
+
+    static async remove(id) {
+      return this.destroy({
+        where: {
+          id,
         },
       });
     }

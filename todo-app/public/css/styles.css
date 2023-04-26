@@ -1,0 +1,11 @@
+body {
+  background-color: rgb(239, 237, 237);
+}
+
+.todoList:hover .trash-icon {
+  display: block;
+}
+
+body h3 {
+  color: rgb(16, 16, 16);
+}
